@@ -1,17 +1,35 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import { axios } from "axios";
 
 export default function Signup() {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
     userName: "",
   });
 
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const onLogin = () => {
+    router.push("/login");
+  };
+
   const onSignUp = async () => {};
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.password.length > 0 &&
+      user.userName.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -27,7 +45,7 @@ export default function Signup() {
           value={user.userName}
           onChange={(e) => setUser({ ...user, userName: e.target.value })}
           placeholder="User Name"
-          className="rounded-md p-[10px] "
+          className="rounded-md p-[10px] text-black"
         />
         <label htmlFor="email" className="text-center">
           Email
@@ -38,7 +56,7 @@ export default function Signup() {
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           placeholder="Email"
-          className="rounded-md p-[10px] "
+          className="rounded-md p-[10px] text-black "
         />
         <label htmlFor="password" className="text-center">
           Password
@@ -49,14 +67,17 @@ export default function Signup() {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="Password"
-          className="rounded-md p-[10px] "
+          className="rounded-md p-[10px] text-black "
         />
         <button
           onClick={onSignUp}
-          className="rounded-md p-[10px] bg-slate-500 mt-[20px] text-white"
+          className={
+            buttonDisabled
+              ? "rounded-md p-[10px] text-orange-400 border-[1px] mt-2"
+              : "rounded-md p-[10px] bg-green-600 mt-2 "
+          }
         >
-          {" "}
-          Sign up
+          {buttonDisabled ? "Please Enter All Fields " : "Sign Up "}
         </button>
         <div className="flex flex-col text-center justify-center">
           <p>Already Have an Account? </p>
