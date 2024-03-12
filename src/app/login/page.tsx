@@ -14,7 +14,7 @@ export default function Login() {
 
   return (
     <div className="flex  h-screen justify-center items-center">
-      <div className=" flex flex-col">
+      <div className=" flex flex-col text-center">
         Login Page Right here
         <hr />
         <label htmlFor="email" className=" text-center">
